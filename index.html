@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Raw Tracker</title>
+    <!-- Essential MQTT library for browsers -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="website-container" grid-bg>
+      <header class="navbard">
+        <div class="logo">Logo</div>
+        <ul class="tabs">
+          <li data-tab-target="#home" class="active tab">Dashboard</li>
+          <li data-tab-target="#settings" class="tab">Settings</li>
+          <li data-tab-target="#about" class="tab">About</li>
+        </ul>
+      </header>
+
+      <main class="tab-content">
+        <div id="home" data-tab-content class="active">
+          <section class="hero-section">
+            <div class="hero-text">
+              <h1>Dashboard</h1>
+              <p class="subtitle">Subtile for this part</p>
+              <div class="dropdown">
+                <button id="dropdown-btn">Plants</button>
+                <div class="content">
+                  <a href="#" class="dropdown-link" data-value="PLANT_1">
+                    Plant 1</a
+                  >
+                  <a href="#" class="dropdown-link" data-value="PLANT_2">
+                    Plant 2</a
+                  >
+                  <a href="#" class="dropdown-link" data-value="PLANT_3">
+                    Plant 3</a
+                  >
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cards-wrapper">
+            <div class="bottom-section">
+              <div class="card">
+                <h3>Water data</h3>
+                <p id="water-data"></p>
+                <button class="btn-secondary">Details ...</button>
+              </div>
+
+              <div class="card">
+                <h3>Sun Data</h3>
+                <p id="sun-data"></p>
+                <button class="btn-secondary">Details ...</button>
+              </div>
+
+              <div class="card">
+                <h3>Humidity Data</h3>
+                <p id="humidity-data"></p>
+                <button class="btn-secondary">Details ...</button>
+              </div>
+            </div>
+            <p id="connection-status" class="status-bar">Connecting...</p>
+          </section>
+        </div>
+
+        <div id="settings" data-tab-content class="tab-pane">
+          <h1>Settings</h1>
+          <p>This is Settings</p>
+        </div>
+
+        <div id="about" data-tab-content class="tab-pane">
+          <h1>About</h1>
+          <p>this is about</p>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
