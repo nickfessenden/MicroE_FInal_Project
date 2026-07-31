@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Raw Tracker</title>
+    <title>Smart Greenhouse Dashboard</title>
     <!-- Essential MQTT library for browsers -->
     <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="website-container" grid-bg>
-      <header class="navbard">
-        <div class="logo">Logo</div>
+    <div class="website-container grid-bg">
+      <header class="navbar">
+        <div class="logo">SMART GREENHOUSE</div>
         <ul class="tabs">
           <li data-tab-target="#home" class="active tab">Dashboard</li>
           <li data-tab-target="#settings" class="tab">Settings</li>
@@ -25,19 +24,13 @@
           <section class="hero-section">
             <div class="hero-text">
               <h1>Dashboard</h1>
-              <p class="subtitle">Subtile for this part</p>
+              <p class="subtitle">Real-time microclimate monitoring & control</p>
               <div class="dropdown">
-                <button id="dropdown-btn">Plants</button>
+                <button id="dropdown-btn" class="dropdown-trigger">Select Plant ▾</button>
                 <div class="content">
-                  <a href="#" class="dropdown-link" data-value="PLANT_1">
-                    Plant 1</a
-                  >
-                  <a href="#" class="dropdown-link" data-value="PLANT_2">
-                    Plant 2</a
-                  >
-                  <a href="#" class="dropdown-link" data-value="PLANT_3">
-                    Plant 3</a
-                  >
+                  <a href="#" class="dropdown-link" data-value="PLANT_1">Plant 1</a>
+                  <a href="#" class="dropdown-link" data-value="PLANT_2">Plant 2</a>
+                  <a href="#" class="dropdown-link" data-value="PLANT_3">Plant 3</a>
                 </div>
               </div>
             </div>
@@ -46,35 +39,62 @@
           <section class="cards-wrapper">
             <div class="bottom-section">
               <div class="card">
-                <h3>Water data</h3>
-                <p id="water-data"></p>
-                <button class="btn-secondary">Details ...</button>
+                <h3>Water Level</h3>
+                <p id="water-data">--%</p>
+                <button class="btn-secondary" data-tab-target="#water-details">Details ...</button>
               </div>
 
               <div class="card">
-                <h3>Sun Data</h3>
-                <p id="sun-data"></p>
-                <button class="btn-secondary">Details ...</button>
+                <h3>Sunlight</h3>
+                <p id="sun-data">--%</p>
+                <button class="btn-secondary" data-tab-target="#sun-details">Details ...</button>
               </div>
 
               <div class="card">
-                <h3>Humidity Data</h3>
-                <p id="humidity-data"></p>
-                <button class="btn-secondary">Details ...</button>
+                <h3>Humidity</h3>
+                <p id="humidity-data">--%</p>
+                <button class="btn-secondary" data-tab-target="#humidity-details">Details ...</button>
               </div>
             </div>
             <p id="connection-status" class="status-bar">Connecting...</p>
           </section>
         </div>
 
+        <div id="water-details" data-tab-content class="tab-pane">
+          <button class="btn-back" data-tab-target="#home">← Back to Dashboard</button>
+          <h2>Water Level Analytics</h2>
+          <div class="data-display-box">
+            <span class="metric-label">Current Reservoir Fill:</span>
+            <span id="detail-water-val" class="metric-value">--%</span>
+          </div>
+        </div>
+
+        <div id="sun-details" data-tab-content class="tab-pane">
+          <button class="btn-back" data-tab-target="#home">← Back to Dashboard</button>
+          <h2>Sunlight Exposure</h2>
+          <div class="data-display-box">
+            <span class="metric-label">Light Intensity:</span>
+            <span id="detail-sun-val" class="metric-value">--%</span>
+          </div>
+        </div>
+
+        <div id="humidity-details" data-tab-content class="tab-pane">
+          <button class="btn-back" data-tab-target="#home">← Back to Dashboard</button>
+          <h2>Humidity</h2>
+          <div class="data-display-box">
+            <span class="metric-label">Relative Humidity:</span>
+            <span id="detail-humidity-val" class="metric-value">--%</span>
+          </div>
+        </div>
+
         <div id="settings" data-tab-content class="tab-pane">
           <h1>Settings</h1>
-          <p>This is Settings</p>
+          <p class="detail-description">Configure parameters and plant climate thresholds.</p>
         </div>
 
         <div id="about" data-tab-content class="tab-pane">
           <h1>About</h1>
-          <p>this is about</p>
+          <p class="detail-description">Built by the Resistors: Abi, Julian, Nick, Ella, Kenny</p>
         </div>
       </main>
     </div>
