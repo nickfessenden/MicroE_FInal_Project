@@ -295,3 +295,34 @@ body {
   text-align: center;
   font-weight: 500;
 }
+@media (max-width: 600px) {
+
+  .navbar {
+
+    flex-direction: column;
+
+    gap: 20px;
+
+  }
+
+  .tabs {
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+  }
+
+}
+@media (max-width: 600px) {
+
+  .hero-section {
+
+    flex-direction: column;
+
+    text-align: center;
+
+    gap: 20px;
+
+  }
+}
