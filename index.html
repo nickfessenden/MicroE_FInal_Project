@@ -50,7 +50,7 @@
             <div class="bottom-section">
               <div class="card">
                 <h3>Water Level</h3>
-                <p id="water-data">--%</p>
+                <p id="soil-health"></p>
                 <button class="btn-secondary" data-tab-target="#water-details">
                   Details ...
                 </button>
@@ -58,15 +58,16 @@
 
               <div class="card">
                 <h3>Sunlight</h3>
-                <p id="sun-data">--%</p>
+                <p id="light-safety"></p>
                 <button class="btn-secondary" data-tab-target="#sun-details">
                   Details ...
                 </button>
               </div>
 
               <div class="card">
-                <h3>Humidity</h3>
-                <p id="humidity-data">--%</p>
+                <h3>Humidity and Temperature</h3>
+                <p id="humidity-safety"></p>
+                <p id="temp-safety"></p>
                 <button
                   class="btn-secondary"
                   data-tab-target="#humidity-details"
@@ -84,9 +85,20 @@
             ← Back to Dashboard
           </button>
           <h2>Water Level Analytics</h2>
+
           <div class="data-display-box">
-            <span class="metric-label">Current Reservoir Fill:</span>
-            <span id="detail-water-val" class="metric-value">--%</span>
+            <span class="metric-label">Current Moisture:</span>
+            <span id="current-water-val" class="metric-value">--%</span>
+          </div>
+
+          <div class="data-display-box">
+            <span class="metric-label">Upper Moisture Threshold:</span>
+            <span id="upper-water-val" class="metric-value">--%</span>
+          </div>
+
+          <div class="data-display-box">
+            <span class="metric-label">Lower Moisture Threshold:</span>
+            <span id="lower-water-val" class="metric-value">--%</span>
           </div>
         </div>
 
@@ -99,6 +111,15 @@
             <span class="metric-label">Light Intensity:</span>
             <span id="detail-sun-val" class="metric-value">--%</span>
           </div>
+
+          <div class="data-display-box">
+            <span class="metric-label">Light Intensity:</span>
+            <span id="upper-sun-val" class="metric-value">--LUX</span>
+          </div>
+          <div class="data-display-box">
+            <span class="metric-label">Light Intensity:</span>
+            <span id="lower-sun-val" class="metric-value">--LUX</span>
+          </div>
         </div>
 
         <div id="humidity-details" data-tab-content class="tab-pane">
@@ -109,6 +130,27 @@
           <div class="data-display-box">
             <span class="metric-label">Relative Humidity:</span>
             <span id="detail-humidity-val" class="metric-value">--%</span>
+          </div>
+          <div class="data-display-box">
+            <span class="metric-label">Upper Humidity Threshold:</span>
+            <span id="upper-humidity-val" class="metric-value"></span>
+          </div>
+          <div class="data-display-box">
+            <span class="metric-label">Lower Humidity Threshold:</span>
+            <span id="lower-humidity-val" class="metric-value"></span>
+          </div>
+          <h2>Temperature</h2>
+          <div class="data-display-box">
+            <span class="metric-label">Relative Temperature:</span>
+            <span id="detail-temp-val" class="metric-value">--%</span>
+          </div>
+          <div class="data-display-box">
+            <span class="metric-label">Upper Temperature Theshold:</span>
+            <span id="upper-temp-val" class="metric-value">--%</span>
+          </div>
+          <div class="data-display-box">
+            <span class="metric-label">Lower Temperature Theshold:</span>
+            <span id="lower-temp-val" class="metric-value">--%</span>
           </div>
         </div>
 

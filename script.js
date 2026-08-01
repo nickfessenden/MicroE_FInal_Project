@@ -37,20 +37,77 @@ client.on("message", (topic, message) => {
   if (topic === "home/sensor") {
     try {
       let data = JSON.parse(message.toString());
-
-      if (data.water !== undefined) {
-        document.getElementById("water-data").innerText = data.water + "%";
-        document.getElementById("detail-water-val").innerText = data.water + "%";
+      if (data.tempUpperThreshold !== undefined) {
+        document.getElementById("upper-temp-val").innerText =
+          data.tempUpperThreshold;
       }
-      if (data.sun !== undefined) {
-        document.getElementById("sun-data").innerText = data.sun + "%";
-        document.getElementById("detail-sun-val").innerText = data.sun + "%";
+      if (data.tempLowerThreshold !== undefined) {
+        document.getElementById("lower-temp-val").innerText =
+          data.tempLowerThreshold;
+      }
+      if (data.temperature !== undefined) {
+        document.getElementById("detail-temp-val").innerText = data.temperature;
+      }
+      if (data.tempLowerThreshold !== undefined) {
+        document.getElementById("lower-temp-val").innerText =
+          data.tempLowerThreshold;
+      }
+      if (data.humidityUpperThreshold !== undefined) {
+        document.getElementById("upper-humidity-val").innerText =
+          data.humidityUpperThreshold;
+      }
+      if (data.humidityLowerThreshold !== undefined) {
+        document.getElementById("lower-humidity-val").innerText =
+          data.humidityLowerThreshold;
+      }
+
+      if (data.lightUpperThreshold !== undefined) {
+        document.getElementById("upper-sun-val").innerText =
+          data.lightUpperThreshold + "LUX";
+      }
+
+      if (data.lightLowerThreshold !== undefined) {
+        document.getElementById("lower-sun-val").innerText =
+          data.lightLowerThreshold + "LUX";
+      }
+      if (data.moisture !== undefined) {
+        document.getElementById("current-water-val").innerText =
+          data.moisture + "%";
+      }
+      if (data.light !== undefined) {
+        document.getElementById("detail-sun-val").innerText =
+          data.light + "LUX";
       }
       if (data.humidity !== undefined) {
-        document.getElementById("humidity-data").innerText = data.humidity + "%";
-        document.getElementById("detail-humidity-val").innerText = data.humidity + "%";
+        document.getElementById("detail-humidity-val").innerText =
+          data.humidity + "%";
       }
 
+      if (data.upperWaterTheshold !== undefined) {
+        document.getElementById("upper-water-val").innerText =
+          data.upperWaterTheshold + "%";
+      }
+
+      if (data.lowerWaterTheshold !== undefined) {
+        document.getElementById("lower-water-val").innerText =
+          data.lowerWaterTheshold + "%";
+      }
+      if (data.soilHealth !== undefined) {
+        document.getElementById("soil-health").innerText =
+          "Your soil is " + data.soilHealth;
+      }
+      if (data.tempSafety !== undefined) {
+        document.getElementById("temp-safety").innerText =
+          "Your temperature " + data.tempSafety;
+      }
+      if (data.lightSafety !== undefined) {
+        document.getElementById("light-safety").innerText =
+          "Your light level " + data.lightSafety;
+      }
+      if (data.humiditySafety !== undefined) {
+        document.getElementById("humidity-safety").innerText =
+          "Your humidity " + data.humiditySafety;
+      }
       statusText.innerText = "Last Updated: " + new Date().toLocaleTimeString();
     } catch (e) {
       console.error("Failed to parse JSON payload:", e);

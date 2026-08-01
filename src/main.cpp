@@ -29,6 +29,7 @@ void checkLightIntensity();
 void updateCurtains();
 void moveCurtains(bool open);
 void updateLCD();
+String isHealthy(float upperTheshold, float lowerTheshold, float value);
 
 // LCD
 LiquidCrystal lcd(12,11,5,4,3,2);
@@ -66,8 +67,8 @@ bool curtainMoving=false;
 unsigned long pumpStartTime=0;
 const unsigned long MAX_PUMP_TIME=10000;
 
-int soilLowerThreshold=30;
-int soilUpperThreshold=70;
+float soilLowerThreshold=30;
+float soilUpperThreshold=70;
 
 float humidityLowerThreshold=40;
 float humidityUpperThreshold=80;
@@ -79,7 +80,7 @@ float airTempUpperThreshold = 27;
 float airTempLowerThreshold = 22;
 
 float luxLevel=3;
-int moisturePercent=15;
+float moisturePercent=15;
 
 float airHumidity=10;
 float airTemperature=20;
@@ -225,15 +226,27 @@ void loop(){
     lastMsg=now;
 
     JsonDocument doc;
+    doc["tempUpperThreshold"] = airTempUpperThreshold;
+    doc["tempLowerThreshold"] = airTempLowerThreshold;
+    doc["humidityLowerThreshold"] = humidityLowerThreshold;
+    doc["humidityUpperThreshold"] = humidityUpperThreshold;
+    doc["lightUpperThreshold"] = lightUpperThreshold;
+    doc["lightLowerThreshold"] = lightLowerThreshold;
+    doc["tempSafety"] = isHealthy(airTempUpperThreshold, airTempLowerThreshold, airTemperature);
+    doc["lightSafety"] = isHealthy(lightUpperThreshold,lightLowerThreshold, luxLevel);
+    doc["humiditySafety"] = isHealthy (humidityUpperThreshold,humidityLowerThreshold,airHumidity);
+    doc ["soilHealth"] = isHealthy(soilUpperThreshold,soilLowerThreshold,moisturePercent);
+    doc["lowerWaterTheshold"] = soilLowerThreshold;
+    doc["upperWaterTheshold"] = soilUpperThreshold;
     doc["temperature"]=airTemperature;
     doc["humidity"]=airHumidity;
     doc["moisture"]=moisturePercent;
     doc["light"]=luxLevel;
 
-    char message[256];
-    serializeJson(doc,message);
+    String payload;
+    serializeJson(doc,payload);
 
-    client.publish("home/sensor",message);
+    client.publish("home/sensor",payload.c_str());
   }
   switch(fanMode){
     case FAN_ON:
@@ -398,4 +411,11 @@ void fanOff(){
 }
 void fanOn(){
   digitalWrite(FAN_PIN,HIGH);
+}
+
+String isHealthy(float upperTheshold, float lowerTheshold, float value){
+  if (value>lowerTheshold&&value<upperTheshold)
+  return "healthy";
+  else
+  return "not healthy";
 }
