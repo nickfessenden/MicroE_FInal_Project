@@ -83,14 +83,14 @@ client.on("message", (topic, message) => {
           data.humidity + "%";
       }
 
-      if (data.upperWaterTheshold !== undefined) {
+      if (data.upperWaterThreshold !== undefined) {
         document.getElementById("upper-water-val").innerText =
-          data.upperWaterTheshold + "%";
+          data.upperWaterThreshold + "%";
       }
 
-      if (data.lowerWaterTheshold !== undefined) {
+      if (data.lowerWaterThreshold !== undefined) {
         document.getElementById("lower-water-val").innerText =
-          data.lowerWaterTheshold + "%";
+          data.lowerWaterThreshold + "%";
       }
       if (data.soilHealth !== undefined) {
         document.getElementById("soil-health").innerText =
@@ -98,15 +98,15 @@ client.on("message", (topic, message) => {
       }
       if (data.tempSafety !== undefined) {
         document.getElementById("temp-safety").innerText =
-          "Your temperature " + data.tempSafety;
+          "Your temperature is " + data.tempSafety;
       }
       if (data.lightSafety !== undefined) {
         document.getElementById("light-safety").innerText =
-          "Your light level " + data.lightSafety;
+          "Your light level is " + data.lightSafety;
       }
       if (data.humiditySafety !== undefined) {
         document.getElementById("humidity-safety").innerText =
-          "Your humidity " + data.humiditySafety;
+          "Your humidity is " + data.humiditySafety;
       }
       statusText.innerText = "Last Updated: " + new Date().toLocaleTimeString();
     } catch (e) {
@@ -147,4 +147,45 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+});
+
+// Theme settings
+document.querySelectorAll('input[name="theme"]').forEach((button) => {
+  button.addEventListener("change", () => {
+    document.body.classList.remove("dark", "light");
+
+    if (button.value !== "default") {
+      document.body.classList.add(button.value);
+    }
+  });
+});
+
+// Dashboard card size
+document.getElementById("card-size").addEventListener("change", (event) => {
+  document.querySelectorAll(".card").forEach((card) => {
+    card.classList.remove("large", "compact");
+
+    if (event.target.value !== "normal") {
+      card.classList.add(event.target.value);
+    }
+  });
+});
+
+// Show/hide cards
+document.getElementById("show-water").addEventListener("change", (e) => {
+  document.querySelector(".water-card").style.display = e.target.checked
+    ? "block"
+    : "none";
+});
+
+document.getElementById("show-sun").addEventListener("change", (e) => {
+  document.querySelector(".sun-card").style.display = e.target.checked
+    ? "block"
+    : "none";
+});
+
+document.getElementById("show-climate").addEventListener("change", (e) => {
+  document.querySelector(".climate-card").style.display = e.target.checked
+    ? "block"
+    : "none";
 });

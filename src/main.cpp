@@ -13,8 +13,9 @@
 
 // Actuators
 #define PUMP_PIN 10
-#define CURTAIN_PIN1 13
-#define CURTAIN_PIN2 A5
+#define CURTAIN_PIN1 2
+#define CURTAIN_PIN2 3
+#define EN 4
 #define FAN_PIN 6
 
 
@@ -29,10 +30,10 @@ void checkLightIntensity();
 void updateCurtains();
 void moveCurtains(bool open);
 void updateLCD();
-String isHealthy(float upperTheshold, float lowerTheshold, float value);
+String isHealthy(float upperThreshold, float lowerThreshold, float value);
 
 // LCD
-LiquidCrystal lcd(12,11,5,4,3,2);
+LiquidCrystal lcd(12,11,5,7,8,13);
 
 const int DRY=65;
 const int WET=145;
@@ -67,20 +68,20 @@ bool curtainMoving=false;
 unsigned long pumpStartTime=0;
 const unsigned long MAX_PUMP_TIME=10000;
 
-float soilLowerThreshold=30;
+float soilLowerThreshold=50;
 float soilUpperThreshold=70;
 
 float humidityLowerThreshold=40;
 float humidityUpperThreshold=80;
 
-float lightLowerThreshold=300;
-float lightUpperThreshold=700;
+float lightLowerThreshold=200;
+float lightUpperThreshold=600;
 
 float airTempUpperThreshold = 27;
 float airTempLowerThreshold = 22;
 
 float luxLevel=3;
-float moisturePercent=15;
+float moisturePercent=60;
 
 float airHumidity=10;
 float airTemperature=20;
@@ -158,7 +159,11 @@ else if (message == "PLANT_2") {
 
 else if (message == "TEST_PLANT") {
 
-    Serial.println("Test Plant selected");
+lightLowerThreshold=200;
+ lightUpperThreshold=600;
+
+ soilLowerThreshold=50;
+ soilUpperThreshold=70;
 
 }
 
@@ -167,6 +172,8 @@ else if (message == "TEST_PLANT") {
 void setup(){
   Serial.begin(115200);
 
+  pinMode(EN, OUTPUT);
+  digitalWrite(EN, HIGH);
   dht.begin();
 
   lcd.begin(16,2);
@@ -199,7 +206,6 @@ void loop(){
 
   if(now-lastMoistureCheck>=MOISTURE_INTERVAL){
     lastMoistureCheck=now;
-    checkMoisture();
   }
 
   if(now-lastHumidityCheck>=HUMIDITY_INTERVAL){
@@ -236,8 +242,8 @@ void loop(){
     doc["lightSafety"] = isHealthy(lightUpperThreshold,lightLowerThreshold, luxLevel);
     doc["humiditySafety"] = isHealthy (humidityUpperThreshold,humidityLowerThreshold,airHumidity);
     doc ["soilHealth"] = isHealthy(soilUpperThreshold,soilLowerThreshold,moisturePercent);
-    doc["lowerWaterTheshold"] = soilLowerThreshold;
-    doc["upperWaterTheshold"] = soilUpperThreshold;
+    doc["lowerWaterThreshold"] = soilLowerThreshold;
+    doc["upperWaterThreshold"] = soilUpperThreshold;
     doc["temperature"]=airTemperature;
     doc["humidity"]=airHumidity;
     doc["moisture"]=moisturePercent;
@@ -270,14 +276,15 @@ void loop(){
 
   switch(curtainMode){
     case CURTAIN_OPEN:
-      if(luxLevel>lightUpperThreshold||airTemperature>airTempUpperThreshold){
+      if(luxLevel>lightUpperThreshold){
+            Serial.println("CLOSING CURTAINS");
         moveCurtains(false);
         curtainMode=CURTAIN_CLOSED;
       }
       break;
 
     case CURTAIN_CLOSED:
-      if(luxLevel<lightLowerThreshold||airTemperature<airTempLowerThreshold){
+      if(luxLevel<lightLowerThreshold){
         moveCurtains(true);
         curtainMode=CURTAIN_OPEN;
       }
@@ -349,7 +356,7 @@ void moveCurtains(bool open){
 
 
 void updateCurtains(){
-  if(curtainMoving&&millis()-curtainStartTime>=300){
+  if(curtainMoving&&millis()-curtainStartTime>=600){
     digitalWrite(CURTAIN_PIN1,LOW);
     digitalWrite(CURTAIN_PIN2,LOW);
     curtainMoving=false;
@@ -357,10 +364,10 @@ void updateCurtains(){
 }
 
 //Changed stuff on this
-void checkLightIntensity(){
- luxLevel = 2807.27163-468.52591*log(analogRead(PHOTO_PIN));
-if (luxLevel<0)
-  luxLevel=0;
+void checkLightIntensity() {
+    int raw = analogRead(PHOTO_PIN);
+    luxLevel =1023- raw;
+    Serial.println(luxLevel);
 
 }
 
@@ -413,8 +420,8 @@ void fanOn(){
   digitalWrite(FAN_PIN,HIGH);
 }
 
-String isHealthy(float upperTheshold, float lowerTheshold, float value){
-  if (value>lowerTheshold&&value<upperTheshold)
+String isHealthy(float upperThreshold, float lowerThreshold, float value){
+  if (value>lowerThreshold&&value<upperThreshold)
   return "healthy";
   else
   return "not healthy";

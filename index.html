@@ -33,10 +33,10 @@
                 </button>
                 <div class="content">
                   <a href="#" class="dropdown-link" data-value="PLANT_1"
-                    >Plant 1</a
+                    >Tomato Plant</a
                   >
                   <a href="#" class="dropdown-link" data-value="PLANT_2"
-                    >Plant 2</a
+                    >Flowering Plant 2</a
                   >
                   <a href="#" class="dropdown-link" data-value="TEST_PLANT"
                     >Test Plant</a
@@ -48,7 +48,7 @@
 
           <section class="cards-wrapper">
             <div class="bottom-section">
-              <div class="card">
+              <div class="card water-card">
                 <h3>Water Level</h3>
                 <p id="soil-health"></p>
                 <button class="btn-secondary" data-tab-target="#water-details">
@@ -56,7 +56,7 @@
                 </button>
               </div>
 
-              <div class="card">
+              <div class="card sun-card">
                 <h3>Sunlight</h3>
                 <p id="light-safety"></p>
                 <button class="btn-secondary" data-tab-target="#sun-details">
@@ -64,7 +64,7 @@
                 </button>
               </div>
 
-              <div class="card">
+              <div class="card climate-card">
                 <h3>Humidity and Temperature</h3>
                 <p id="humidity-safety"></p>
                 <p id="temp-safety"></p>
@@ -145,27 +145,111 @@
             <span id="detail-temp-val" class="metric-value">--%</span>
           </div>
           <div class="data-display-box">
-            <span class="metric-label">Upper Temperature Theshold:</span>
+            <span class="metric-label">Upper Temperature Threshold:</span>
             <span id="upper-temp-val" class="metric-value">--%</span>
           </div>
           <div class="data-display-box">
-            <span class="metric-label">Lower Temperature Theshold:</span>
+            <span class="metric-label">Lower Temperature Threshold:</span>
             <span id="lower-temp-val" class="metric-value">--%</span>
           </div>
         </div>
 
         <div id="settings" data-tab-content class="tab-pane">
           <h1>Settings</h1>
-          <p class="detail-description">
-            Configure parameters and plant climate thresholds.
-          </p>
+
+          <p class="detail-description">Customize your dashboard appearance.</p>
+
+          <div class="settings-card">
+            <h2>Theme</h2>
+
+            <label>
+              <input type="radio" name="theme" value="default" checked />
+              Greenhouse Theme
+            </label>
+
+            <br />
+
+            <label>
+              <input type="radio" name="theme" value="dark" />
+              Dark Mode
+            </label>
+
+            <br />
+
+            <label>
+              <input type="radio" name="theme" value="light" />
+              Light Mode
+            </label>
+          </div>
+
+          <div class="settings-card">
+            <h2>Dashboard Layout</h2>
+
+            <label>
+              Card Size:
+              <select id="card-size">
+                <option value="normal">Normal</option>
+                <option value="large">Large</option>
+                <option value="compact">Compact</option>
+              </select>
+            </label>
+
+            <br /><br />
+
+            <label>
+              <input type="checkbox" id="show-water" checked />
+              Show Water Level
+            </label>
+
+            <br />
+
+            <label>
+              <input type="checkbox" id="show-sun" checked />
+              Show Sunlight
+            </label>
+
+            <br />
+
+            <label>
+              <input type="checkbox" id="show-climate" checked />
+              Show Humidity & Temperature
+            </label>
+          </div>
         </div>
 
         <div id="about" data-tab-content class="tab-pane">
-          <h1>About</h1>
+          <h1>About The Team</h1>
+
           <p class="detail-description">
             Built by the Resistors: Abi, Julian, Nick, Ella, Kenny
           </p>
+
+          <div class="team-container">
+            <div class="team-member">
+              <img src="images/abi.png" alt="Abi" />
+              <h3>Abi</h3>
+            </div>
+
+            <div class="team-member">
+              <img src="images/julian.png" alt="Julian" />
+              <h3>Julian</h3>
+            </div>
+
+            <div class="team-member">
+              <img src="images/nick.png" alt="Nick" />
+              <h3>Nick</h3>
+            </div>
+
+            <div class="team-member">
+              <img src="images/ella.png" alt="Ella" />
+              <h3>Ella</h3>
+            </div>
+
+            <div class="team-member">
+              <img src="images/kenny.png" alt="Kenny" />
+              <h3>Kenny</h3>
+            </div>
+          </div>
         </div>
       </main>
     </div>
